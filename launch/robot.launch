@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="robot" default="cf1"/>
+  <arg name="robot" default="90"/>
   <arg name="uri" default="$(eval 'radio://0/100/2M/E7E7E7E70' + arg('robot')[-1] )" /> <!-- less than 10 -->
   <arg name="frame" default="$(eval '/optitrack/' + arg('robot') + '/pose' )" />
 
