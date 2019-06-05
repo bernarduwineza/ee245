@@ -56,17 +56,29 @@ if __name__ == '__main__':
         x = r * np.cos(t)
         y = r * np.sin(t)
         circles  = np.c_[x, y, zeros]
-
         return circles 
+
     n = 20	# number of points 
     t = 5/n	# time to the next point in a circle
     circ = circle_points(0.45, n)
+    # print(circ)
+
+    # navigate to tangent of curve 
+    tmp = np.add([0,0,0], [0,0,1])
+    cf.goTo(goal=tmp, yaw=0, duration=3.0)
+    time.sleep(5.0)
     print(tmp)
+
     for i in range(n):
-        pt = np.add(circ[i], tmp)
-        cf.cmdPosition(pos=pt, yaw=0)
-        time.sleep(0.4)
-  
+        if i==0: 
+            pt = np.add(circ[i], tmp)
+            cf.goTo(goal=pt, yaw=0, duration=1.0)
+            time.sleep(1)
+        else:
+            pt = np.add(circ[i], tmp)
+            cf.cmdPosition(pos=pt, yaw=0)
+            time.sleep(0.4)
+    print(pt)
     time.sleep(5.0)
 
     # Eight curve maneuver
@@ -82,14 +94,31 @@ if __name__ == '__main__':
     n = 40	# number of points 
     t = 5/n	# time to the next point in the curve
     eight = eight_points(1.7, n)
-    print(eight)
+    # print(eight)
+
+    # navigate to tangent of curve 
+    tmp = np.add(eight[0], [0,0,1])
+    cf.goTo(goal=tmp, yaw=0, duration=3.0)
+    time.sleep(5.0)
 
     for i in range(n):
-        pt = np.add(eight[i], tmp)
-        cf.cmdPosition(pos=pt, yaw=0)
-        time.sleep(0.2)
+        if i == 0: 
+            pt = np.add(eight[i], [0,0,1])
+            cf.goTo(goal=pt, yaw=0, duration=1.5)
+            time.sleep(0.2)
+        else:
+            pt = np.add(eight[i], [0,0,1])
+            cf.cmdPosition(pos=pt, yaw=0)
+            time.sleep(0.2)
     
+    time.sleep(3.0)
+    print(pt)
+
+    # to land in original position
+    tmp = [0,0,1]
+    cf.goTo(goal=tmp, yaw=0, duration=5.0)
     time.sleep(5.0)
+    print(tmp)
 
     cf.land(targetHeight = 0.0, duration = 5.0)
-    time.sleep(5.0)
+    time.sleep(6.0)
