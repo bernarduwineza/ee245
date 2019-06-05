@@ -122,3 +122,39 @@ if __name__ == '__main__':
 
     cf.land(targetHeight = 0.0, duration = 5.0)
     time.sleep(6.0)
+
+    cf.takeoff(targetHeight = 0.5, duration = 3.0)
+    time.sleep(3.0)
+
+# Eight curve maneuver 3D
+    def eight3d_points(r, n):
+        eight_3d  = []
+        t = np.linspace(-(np.pi), np.pi, n)
+        x = 0.2*t
+        y = r * np.cos(t)
+        z = r * np.sin(t) * np.cos(t)
+        eight_3d  = np.c_[x, y, z]
+        return eight_3d 
+
+    n = 100	# number of points 
+    t = 5/n	# time to the next point in the curve
+    eight_3d = eight3d_points(1.7, n)
+    print(eight_3d)
+
+    # navigate to tangent of curve 
+    tmp = np.add(eight_3d[0], [0,0,1])
+    cf.goTo(goal=tmp, yaw=0, duration=3.0)
+    time.sleep(5.0)
+
+    for i in range(n):
+        if i == 0: 
+            pt = np.add(eight_3d[i], [0,0,0])
+            cf.goTo(goal=pt, yaw=0, duration=1.5)
+            time.sleep(1.0)
+        else:
+            pt = np.add(eight_3d[i], [0,0,1])
+            cf.cmdPosition(pos=pt, yaw=0)
+            time.sleep(0.3)
+
+    cf.land(targetHeight = 0.0, duration = 5.0)
+    time.sleep(6.0)
