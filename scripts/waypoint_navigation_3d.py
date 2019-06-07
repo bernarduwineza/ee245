@@ -28,8 +28,8 @@ if __name__ == '__main__':
         z = zeros(len(t))
         eightPlanar  = np.c_[x, y, z]
         return eightPlanar 
-
-    def transform(theta,p,q0):
+ 
+    def transform(theta,p,q0):  # WHAT DOES IT RETURN? 
         # transforms the vector `q0` by shifting by `p` and rotating about the `x` axis of the world frame by `theta`
         p = np.reshape(p,(3,1))
         R = np.array([[1 0 0],[0 np.cos(theta) -np.sin(theta)],[0 np.sin(theta) np.cos(theta)]])
