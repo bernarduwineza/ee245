@@ -54,7 +54,7 @@ if __name__ == '__main__':
     eight_3d = np.zeros(eight_2d.shape)
     tmp = eight_2d[0:]
     for i in range(len(tmp))
-        eight_3d = transform(theta,p)
+        eight_3d = transform(theta,p)   # THERE SEEMS TO BE A MISSING PARAMETER
 
 
     # takeoff to height
