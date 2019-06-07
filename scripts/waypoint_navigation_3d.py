@@ -25,14 +25,14 @@ if __name__ == '__main__':
         t = np.linspace(-(np.pi), np.pi, n)
         x = r * np.cos(t)
         y = r * np.sin(t) * np.cos(t)
-        z = zeros(len(t))
+        z = np.zeros(len(t))
         eightPlanar  = np.c_[x, y, z]
         return eightPlanar 
  
     def transform(theta,p,q0):  # WHAT DOES IT RETURN? 
         # transforms the vector `q0` by shifting by `p` and rotating about the `x` axis of the world frame by `theta`
         p = np.reshape(p,(3,1))
-        R = np.array([[1 0 0],[0 np.cos(theta) -np.sin(theta)],[0 np.sin(theta) np.cos(theta)]])
+        R = np.array([[1, 0, 0],[0, np.cos(theta), -np.sin(theta)],[0, np.sin(theta), np.cos(theta)]])
         T1 = np.hstack((R,p))
         T2 = np.hstack((zeros(3),1))
         T = np.vstack((T1,T2))
@@ -53,8 +53,8 @@ if __name__ == '__main__':
     p = np.asarray((0, 0, height))
     eight_3d = np.zeros(eight_2d.shape)
     tmp = eight_2d[0:]
-    for i in range(len(tmp))
-        eight_3d = transform(theta,p)   # THERE SEEMS TO BE A MISSING PARAMETER
+    for i in range(len(tmp)):
+        eight_3d = transform(theta,p, eight_3d[i])   # THERE SEEMS TO BE A MISSING PARAMETER
 
 
     # takeoff to height
