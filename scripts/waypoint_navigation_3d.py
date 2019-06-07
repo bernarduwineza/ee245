@@ -46,8 +46,16 @@ if __name__ == '__main__':
     gotoDuration = 3.0      # [sec] time for goto tracking 
     theta = np.pi/8         # [rad] angle to til trajectory about the world frame x
 
-    # define trajectory
-    eight_3d = eight3d_points(r, n)
+    # define planar trajectory
+    eight_2d = eightPlanar_points(r, n)
+
+    # TO DO: transform the planar trajectory by applying the transformation matrix
+    p = np.asarray((0, 0, height))
+    eight_3d = np.zeros(eight_2d.shape)
+    tmp = eight_2d[0:]
+    for i in range(len(tmp))
+        eight_3d = transform(theta,p)
+
 
     # takeoff to height
     cf.takeoff(targetHeight = height, duration = gotoDuration)
