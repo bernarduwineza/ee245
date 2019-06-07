@@ -20,30 +20,38 @@ if __name__ == '__main__':
     # 3D Figure 8 -------------------------------------------
     
     # Eight curve maneuver 3D
-    def eight3d_points(r, n):
-        eight_3d  = []
+    def eightPlanar_points(r, n):
+        eightPlanar  = []
         t = np.linspace(-(np.pi), np.pi, n)
-        x = 0.2*t
-        y = r * np.cos(t)
-        z = r * np.sin(t) * np.cos(t)
-        eight_3d  = np.c_[x, y, z]
-        return eight_3d 
+        x = r * np.cos(t)
+        y = r * np.sin(t) * np.cos(t)
+        z = zeros(len(t))
+        eightPlanar  = np.c_[x, y, z]
+        return eightPlanar 
+
+    def transform(theta,p,q0):
+        T = np.
+
 
     # Preliminaries
-    n = 200	    # number of points 
-    t = 5/n	    # [sec] time to the next point in the curve
-    r = .75     # [meters]
+    n = 200	                 number of points 
+    t = 5/n	                # [sec] time to the next point in the curve
+    r = .75                 # [meters]
+    height = 0.5            # [meters]
+    gotoDuration = 3.0      # [sec] time for goto tracking 
 
+    # define trajectory
     eight_3d = eight3d_points(r, n)
 
     # takeoff to height
-    cf.takeoff(targetHeight = 0.5, duration = 3.0)
-    time.sleep(3.0)
+    cf.takeoff(targetHeight = height, duration = gotoDuration)
+    time.sleep(gotoDuration)
 
+    # NEED TO FIX! THIS ISNT TANGENT TO FIGURE 8.
     # navigate to tangent of curve 
     tmp = np.add(eight_3d[0], [0,0,1])
-    cf.goTo(goal=tmp, yaw=0, duration=3.0)
-    time.sleep(3.0)
+    cf.goTo(goal=tmp, yaw=0, duration=gotoDuration)
+    time.sleep(gotoDuration)
 
     for i in range(n):
         if i == 0: 
